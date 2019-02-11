@@ -22,8 +22,6 @@
 2. Tests run
 3. Deploy to AWS Elastic Beanstalk
 
----
-
 # Development Environment
 
 ## Dockerfile.dev
@@ -35,11 +33,12 @@
 5. Copies all files from root dir
 6. Runs command 'npm run start'
 
-## Docker-Compose file
+## Docker-Compose file to run both of our development containers
 
 1. Builds two 'Services', a web service and a test service
-2. The `volumes` param is like a --watch on certain dirs
+2. The `volumes` param is like a --watch on certain dirs and will auto update on change
 3. Noice how we give the second service **tests** a new command to run
+   which is easier than running `docker exec -it <CONTAINER_ID> npm run test`
 
 ---
 
@@ -60,6 +59,4 @@
 2. Exposes a port (default is 80)
 3. Copy --from=builder (our named first build) /app/build /usr/share/nginx/html
 
-`All the extra stuff created in the Build Phase that we didn't bring over is gonzo`
-
----
+`All the extra stuff created during the Build Phase is not brought over, only files from /app/build`
